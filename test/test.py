@@ -6,6 +6,9 @@
 @CreatedTime: 2022/10/27 15:13
 """
 
+from spider.public.build_headers import BuildHeaders
+
 
 if __name__ == '__main__':
+    print(BuildHeaders.headers())
     pass
