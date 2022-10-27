@@ -21,18 +21,22 @@ class ConnectMySQL(object):
         self.password = config.MYSQL_PASSWORD
         self.database = config.MYSQL_DATABASE
         
-    @classmethod
-    def mysql(cls) -> Any:
+    def mysql(self):
+        """
+        创建mysql连接
+        :return: 数据库连接对象
+        """
         try:
             connnect = pymysql.connect(
-                host=cls().host,
-                port=cls().port,
-                user=cls().user,
-                password=cls().password,
-                database=cls().database,
-                charset='utf-8'
+                host=self.host,
+                port=self.port,
+                user=self.user,
+                password=self.password,
+                database=self.database,
             )
             
-            return connnect.cursor()
+            return connnect
         except Exception as error:
             return error
+
+

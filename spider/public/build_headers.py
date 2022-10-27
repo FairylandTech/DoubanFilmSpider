@@ -68,6 +68,10 @@ class BuildHeaders(object):
         ]
     
     def __headers(self) -> dict:
+        """
+        私有方法, 创建headers
+        :return: headers
+        """
         self.headers = {
             'User-Agent': random.choice(self.ua_list_pc),
             'Referer': 'http://movie.douban.com',
@@ -77,5 +81,9 @@ class BuildHeaders(object):
         
     @classmethod
     def headers(cls) -> dict:
+        """
+        构建请求头
+        :return: headers 
+        """
         return cls().__headers()
 
