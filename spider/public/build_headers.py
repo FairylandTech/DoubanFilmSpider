@@ -67,7 +67,11 @@ class BuildHeaders(object):
             "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 UBrowser/4.0.3214.0 Safari/537.36",
         ]
     
-    def __headers(self):
+    def __headers(self) -> dict:
+        """
+        私有方法, 创建headers
+        :return: headers
+        """
         self.headers = {
             'User-Agent': random.choice(self.ua_list_pc),
             'Referer': 'http://movie.douban.com',
@@ -76,6 +80,10 @@ class BuildHeaders(object):
         return self.headers
         
     @classmethod
-    def headers(cls):
+    def headers(cls) -> dict:
+        """
+        构建请求头
+        :return: headers 
+        """
         return cls().__headers()
 
