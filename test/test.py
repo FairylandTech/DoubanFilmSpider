@@ -5,3 +5,7 @@
 @HomePage: https://github.com/AliceEngineerPro
 @CreatedTime: 2022/10/27 15:13
 """
+
+
+if __name__ == '__main__':
+    pass
