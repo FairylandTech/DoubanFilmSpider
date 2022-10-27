@@ -7,6 +7,7 @@
 """
 
 from spider.public.build_headers import BuildHeaders
+import config
 
 
 if __name__ == '__main__':
