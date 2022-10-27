@@ -1,0 +1,14 @@
+# @File: config.yaml
+# @Author: Alice(From Chengdu.China)
+# @HomePage: https://github.com/AliceEngineerPro
+# @CreatedTime: 2022/10/27 18:35
+
+spider:
+  mysql:
+    host: 'connect.sql.alicehome.ltd'
+    port: 23306
+    user: 'user'
+    password: 'A-pwd@user#112'
+    database: 'tb_t_spider_douban_movies'
+  others:
+    pass: 'pass'
