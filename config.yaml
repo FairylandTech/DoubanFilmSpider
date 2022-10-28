@@ -15,6 +15,6 @@ spider:
     port: 13306
     user: 'root'
     password: 'root'
-    database: 'tb_test_basic'
+    database: 'tb_douban_movies'
   others:
     pass: 'pass'
