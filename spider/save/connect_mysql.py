@@ -8,7 +8,6 @@
 
 import pymysql
 import config
-from typing import Any
 
 
 class ConnectMySQL(object):
