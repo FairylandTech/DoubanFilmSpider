@@ -12,5 +12,6 @@ from spider.public.init_mysqlserver import ConnectMySQL
 if __name__ == '__main__':
     # print(BuildHeaders.headers())
     # print(config.MYSQL_HOST)
-    print(ConnectMySQL.mysql())
+    # print(ConnectMySQL.mysql())
+    print('133')
     pass

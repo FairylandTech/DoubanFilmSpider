@@ -30,11 +30,12 @@ class ExecuteSQL(ConnectMySQL):
         except Exception as error:
             self.cursor.close()
             self.connect.close()
-            return error
+            print(error)
         self.cursor.close()
         self.connect.commit()
         self.connect.close()
-        return 1
+        
+
 
 
 
