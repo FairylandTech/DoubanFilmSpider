@@ -7,7 +7,7 @@
 """
 
 from spider.public.mysqlserver_execute_command import ExecuteSQL
-
+ 
 
 class CreateTables(ExecuteSQL):
     """创建数据"""
