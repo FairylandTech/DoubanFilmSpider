@@ -27,7 +27,7 @@ class CreateTables(ExecuteSQL):
                       "modify_time datetime default current_timestamp on update current_timestamp comment '字段修改时间'," \
                       "is_delete boolean default false comment '是否逻辑删除'" \
                       ") charset utf8mb4;"
-            super(CreateTables, self).exec_sql(sql_msg=sql_msg)
+            self.exec_sql(sql_msg=sql_msg)
         except Exception as error:
             print(error)
             exit(1)
@@ -44,7 +44,7 @@ class CreateTables(ExecuteSQL):
                       "modify_time datetime default current_timestamp on update current_timestamp comment '字段修改时间'," \
                       "is_delete boolean default false comment '是否逻辑删除'" \
                       ") charset utf8mb4;"
-            super(CreateTables, self).exec_sql(sql_msg=sql_msg)
+            self.exec_sql(sql_msg=sql_msg)
         except Exception as error:
             print(error)
             exit(1)
@@ -71,7 +71,52 @@ class CreateTables(ExecuteSQL):
                       "modify_time datetime default current_timestamp on update current_timestamp comment '字段修改时间'," \
                       "is_delete boolean default false comment '是否逻辑删除'" \
                       ") charset utf8mb4;"
-            super(CreateTables, self).exec_sql(sql_msg=sql_msg)
+            self.exec_sql(sql_msg=sql_msg)
+        except Exception as error:
+            print(error)
+            exit(1)
+            
+    def c_tb_movies_temp_info(self):
+        try:
+            sql_msg = "create table if not exists tb_movies_temp_info (" \
+                      "id int not null primary key auto_increment comment 'id'," \
+                      "directors varchar(255) not null comment '导演' ," \
+                      "rate varchar(255) not null comment '不知道是什么' ," \
+                      "title varchar(255) not null ," \
+                      "casts varchar(255) not null ," \
+                      "detali_link varchar(255) not null ," \
+                      "yeat varchar(255) not null ," \
+                      "types varchar(255) not null ," \
+                      "country varchar(255) not null ," \
+                      "lang varchar(255) not null ," \
+                      "time varchar(255) not null ," \
+                      "movie_time varchar(255) not null ," \
+                      "comment_len varchar(255) not null ," \
+                      "starts varchar(255) not null ," \
+                      "summary varchar(2555) not null ," \
+                      "comment text ," \
+                      "image_list varchar(2555) not null ," \
+                      "movie_url varchar(255) not null ," \
+                      "create_time datetime default current_timestamp comment '字段创建时间', " \
+                      "modify_time datetime default current_timestamp on update current_timestamp comment '字段修改时间' ," \
+                      "is_delete boolean default false comment '是否逻辑删除' " \
+                      ") charset utf8mb4 ;"
+            self.exec_sql(sql_msg=sql_msg)
+        except Exception as error:
+            print(error)
+            exit(1)
+            
+    def c_tb_movies_simple_info(self):
+        try:
+            sql_msg = "create table if not exists tb_movies_simple_info (" \
+                      "id int not null primary key auto_increment comment 'id' ," \
+                      "title varchar(50) not null comment '电影名称' ," \
+                      "url varchar(255) not null comment '电影Url' ," \
+                      "create_time datetime default current_timestamp comment '字段创建时间' ," \
+                      "modify_time datetime default current_timestamp on update current_timestamp comment '字段修改时间' ," \
+                      "is_delete boolean default false comment '是否逻辑删除' " \
+                      ") charset utf8mb4 ;"
+            self.exec_sql(sql_msg=sql_msg)
         except Exception as error:
             print(error)
             exit(1)

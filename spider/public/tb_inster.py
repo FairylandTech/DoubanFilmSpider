@@ -117,6 +117,16 @@ class InsterTables(ExecuteSQL):
                   f"'{link}') ;"
         self.exec_sql(sql_msg=sql_msg)
         
+    def insert_tb_movies_simple_info(self, title: str, url: str):
+        sql_msg = f"insert into tb_douban_movies.tb_movies_simple_info (" \
+                  f"title, " \
+                  f"url) " \
+                  f"values (" \
+                  f"'{title}', " \
+                  f"'{url}'" \
+                  f") ;"
+        self.exec_sql(sql_msg=sql_msg)
+        
         
 if __name__ == '__main__':
     # InsterTables().insert_tb_director_info(name='张三', sex='男', introduction='我是张三11', link='https://baidu.com')
