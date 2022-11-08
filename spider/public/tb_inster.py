@@ -117,6 +117,77 @@ class InsterTables(ExecuteSQL):
                   f"'{link}') ;"
         self.exec_sql(sql_msg=sql_msg)
         
+    def insert_tb_movies_simple_info(self, title: str, url: str):
+        sql_msg = f"insert into tb_douban_movies.tb_movies_simple_info (" \
+                  f"title, " \
+                  f"url) " \
+                  f"values (" \
+                  f"'{title}', " \
+                  f"'{url}'" \
+                  f") ;"
+        self.exec_sql(sql_msg=sql_msg)
+        
+    def insert_tb_movies_used_info(self, 
+                                   directors,
+                                   score,
+                                   title,
+                                   actors,
+                                   playbill_link,
+                                   detail_link,
+                                   release_year,
+                                   movie_type,
+                                   movie_country,
+                                   movie_lang,
+                                   release_time,
+                                   movie_long,
+                                   short_review_num,
+                                   star_compare,
+                                   summary,
+                                   movie_review,
+                                   about_img_url,
+                                   movie_url,):
+        sql_msg = f"insert into tb_douban_movies.tb_movies_used_info (" \
+                  f"directors, " \
+                  f"score, " \
+                  f"title, " \
+                  f"actors, " \
+                  f"playbill_link, " \
+                  f"detail_link, " \
+                  f"release_year, " \
+                  f"movie_type, " \
+                  f"movie_country, " \
+                  f"movie_lang, " \
+                  f"release_time, " \
+                  f"movie_long, " \
+                  f"short_review_num, " \
+                  f"star_compare, " \
+                  f"summary, " \
+                  f"movie_review, " \
+                  f"about_img_url, " \
+                  f"movie_url) " \
+                  f"values (" \
+                  f"'{directors}', " \
+                  f"'{score}', " \
+                  f"'{title}', " \
+                  f"'{actors}', " \
+                  f"'{playbill_link}', " \
+                  f"'{detail_link}', " \
+                  f"'{release_year}', " \
+                  f"'{movie_type}', " \
+                  f"'{movie_country}', " \
+                  f"'{movie_lang}', " \
+                  f"'{release_time}', " \
+                  f"'{movie_long}', " \
+                  f"'{short_review_num}', " \
+                  f"'{star_compare}', " \
+                  f"'{summary}', " \
+                  f"\"{movie_review}\", " \
+                  f"'{about_img_url}', " \
+                  f"'{movie_url}' " \
+                  f") ;"
+        print(sql_msg)
+        self.exec_sql(sql_msg=sql_msg)
+        
         
 if __name__ == '__main__':
     # InsterTables().insert_tb_director_info(name='张三', sex='男', introduction='我是张三11', link='https://baidu.com')

@@ -10,7 +10,6 @@ from spider.public.init_mysqlserver import ConnectMySQL
 
 
 class ExecuteSQL(ConnectMySQL):
-    """创建数据表"""
 
     def __init__(self):
         super(ExecuteSQL, self).__init__()
@@ -27,6 +26,7 @@ class ExecuteSQL(ConnectMySQL):
         """
         try:
             self.cursor.execute(query=sql_msg)
+            print('执行成功！')
         except Exception as error:
             self.cursor.close()
             self.connect.close()

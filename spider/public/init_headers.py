@@ -74,8 +74,10 @@ class BuildHeaders(object):
         """
         self.headers = {
             'User-Agent': random.choice(self.ua_list_pc),
-            'Referer': 'http://movie.douban.com',
-            'Hosts': 'movie.douban.com'
+            'Referer': 'https://movie.douban.com/explore',
+            'Host': 'm.douban.com',
+            'Origin': 'https://movie.douban.com',
+            'Upgrade-Insecure-Requests': '1'
         }
         return self.headers
         
