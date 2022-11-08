@@ -6,9 +6,8 @@
 @CreatedTime: 2022/11/8 0:45
 """
 
-from spider.douban.douban_spider_movies_datas import FindDoubanSpiderMoviesSimplesDatas
-
+from spider.douban.douban_get_movies_details import SpiderDoubanMoviesDetails
 
 if __name__ == '__main__':
-    FindDoubanSpiderMoviesSimplesDatas().movies_details_save()
+    SpiderDoubanMoviesDetails().batch_save_movies_details()
 

@@ -8,29 +8,16 @@
 
 from spider.public.init_mysqlserver import ConnectMySQL
 import re
-from spider.douban.douban_save_movies_url import BatchedSpiderDoubanMoviesDatas
+from spider.douban.douban_get_movies_url import SpiderDoubanMoviesInit
+from spider.douban.douban_movies_simples_datas_cleaning import SpiderDoubanMoviesSimplesDatasCleaning
+from spider.douban.douban_get_movies_details import SpiderDoubanMoviesDetails
 
 
 if __name__ == '__main__':
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='喜剧')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='爱情')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='动作')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='动画')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='悬疑')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='犯罪')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='冒险')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='音乐')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='历史')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='奇幻')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='恐怖')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='战争')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='传记')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='歌舞')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='武侠')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='情色')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='灾难')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='西部')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='纪录片')
-    # BatchedSpiderDoubanMoviesDatas().batch_datas(movies_type='短片')
-    BatchedSpiderDoubanMoviesDatas().douban_movies_types()
+    # 获取数据
+    SpiderDoubanMoviesInit().batch_save_movies_url()
+    # 逻辑删除重复数据
+    # SpiderDoubanMoviesSimplesDatasCleaning().movies_url_datas_unique()
+    # 获取详细数据
+    # SpiderDoubanMoviesDetails().batch_save_movies_details()
     pass

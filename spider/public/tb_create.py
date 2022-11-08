@@ -120,6 +120,37 @@ class CreateTables(ExecuteSQL):
         except Exception as error:
             print(error)
             exit(1)
+            
+    def c_tb_movies_used_info(self):
+        try:
+            sql_msg = "create table if not exists tb_movies_used_info (" \
+                      "id int not null primary key auto_increment comment 'id', " \
+                      "directors varchar(255) not null comment '电影导演', " \
+                      "score varchar(255) not null comment '电影评分', " \
+                      "title varchar(255) not null comment '电影名称', " \
+                      "actors varchar(2555) not null comment '电影演员', " \
+                      "playbill_link varchar(255) not null comment '电影封面URL', " \
+                      "detail_link varchar(255) not null comment '电影详情URL', " \
+                      "release_year varchar(255) not null comment '电影发行年份', " \
+                      "movie_type varchar(255) not null comment '电影类型', " \
+                      "movie_country varchar(255) not null comment '制片国家', " \
+                      "movie_lang varchar(255) not null comment '电影语言', " \
+                      "release_time varchar(255) not null comment '上映时间', " \
+                      "movie_long varchar(255) not null comment '电影时长', " \
+                      "short_review_num varchar(255) not null comment '短评数量', " \
+                      "star_compare varchar(255) not null comment '星级占比', " \
+                      "summary text not null comment '电影简介', " \
+                      "movie_review text not null comment '电影短评', " \
+                      "about_img_url varchar(2555) not null comment '相关图片URL'," \
+                      "movie_url varchar(255) not null comment '电影视频URL', " \
+                      "create_time datetime default current_timestamp comment '字段创建时间' ," \
+                      "modify_time datetime default current_timestamp on update current_timestamp comment '字段修改时间' ," \
+                      "is_delete boolean default false comment '是否逻辑删除' " \
+                      ") charset utf8mb4 ;"
+            self.exec_sql(sql_msg=sql_msg)
+        except Exception as error:
+            print(error)
+            exit(1)
 
 if __name__ == '__main__':
     # CreateTables().c_tb_director_info()

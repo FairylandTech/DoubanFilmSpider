@@ -26,6 +26,7 @@ class ExecuteSQL(ConnectMySQL):
         """
         try:
             self.cursor.execute(query=sql_msg)
+            print('执行成功！')
         except Exception as error:
             self.cursor.close()
             self.connect.close()
