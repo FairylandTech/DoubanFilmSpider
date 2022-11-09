@@ -55,11 +55,15 @@ class SpiderDoubanMoviesInit(object):
             params=params,
             cookies=self.cookies,
         )
+        # response_status_code = response.status_code
         response_json = json.loads(response.content.decode())
         return response_json
     
     def save_movies_url(self, params):
         movies_details = self.douban_response_json(params=params).get('items')
+        print(movies_details)
+        if not movies_details:
+            pass
         for index, details in enumerate(movies_details):
             index: int
             details: dict
@@ -84,18 +88,13 @@ class SpiderDoubanMoviesInit(object):
         #     '情色', '灾难', '西部', '纪录片', '短片'
         # ]
         types_list: list = [
-            '音乐'
+            # '战争',
+            # '情色', 
+            '灾难', '西部', '纪录片', '短片'
         ]
-        # country_list: list = [
-        #     '华语', '欧美', '韩国', '日本', '中国大陆', '美国', '中国香港', '中国台湾', '英国', '法国', '德国', '意大利', '西班牙', '印度', '泰国',
-        #     '俄罗斯', '加拿大', '澳大利亚', '爱尔兰', '瑞典', '巴西', '丹麦'
-        # ]
         country_list: list = [
-            '法国', '德国', '意大利', '西班牙', '印度', '泰国',
+            '华语', '欧美', '韩国', '日本', '中国大陆', '美国', '中国香港', '中国台湾', '英国', '法国', '德国', '意大利', '西班牙', '印度', '泰国',
             '俄罗斯', '加拿大', '澳大利亚', '爱尔兰', '瑞典', '巴西', '丹麦'
-        ]
-        time_list: list = [
-
         ]
         for movies_type in types_list:
             selected_categories = json.dumps({"类型": f"{movies_type}"}, ensure_ascii=False)

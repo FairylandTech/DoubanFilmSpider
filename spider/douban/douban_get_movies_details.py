@@ -11,7 +11,7 @@ from spider.public.init_mysqlserver import ConnectMySQL
 from spider.public.tb_create import CreateTables
 import requests
 from bs4 import BeautifulSoup
-import re, json, time, random
+import re, time, random
 from spider.public.tb_inster import InsterTables
 
 
@@ -46,7 +46,8 @@ class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):
             sql_msg = "select tb_douban_movies.tb_movies_simple_info.id, tb_douban_movies.tb_movies_simple_info.url " \
                       "from tb_douban_movies.tb_movies_simple_info " \
                       "where tb_douban_movies.tb_movies_simple_info.is_delete = false " \
-                      "and tb_douban_movies.tb_movies_simple_info.id > 453 ;"
+                      "and tb_douban_movies.tb_movies_simple_info.id > 5338 " \
+                      "order by tb_douban_movies.tb_movies_simple_info.id ;"
             cursor.execute(query=sql_msg)
             movies_datas = cursor.fetchall()
             CreateTables().c_tb_movies_used_info()
@@ -60,13 +61,23 @@ class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):
                 )
                 movie_soup = BeautifulSoup(movie_response.content.decode(), 'html.parser')
                 # 片名
-                name = movie_soup.find('span', {'property': 'v:itemreviewed'}).text.split(' ')[0]
+                try:
+                    name = movie_soup.find('span', {'property': 'v:itemreviewed'}).text.split(' ')[0]
+                except Exception as error:
+                    print(error)
+                    name = ''
                 # 上映年份
-                year = movie_soup.find('span', {'class': 'year'}).text.replace('(', '').replace(')', '')
+                try:
+                    year = movie_soup.find('span', {'class': 'year'}).text.replace('(', '').replace(')', '')
+                except Exception as error:
+                    print(error)
+                    year = ''
                 # 评分
-                score = movie_soup.find('strong', {'property': 'v:average'}).text
-                # 评价人数
-                # votes = movie_soup.find('span', {'property': 'v:votes'}).text
+                try:
+                    score = movie_soup.find('strong', {'property': 'v:average'}).text
+                except Exception as error:
+                    print(error)
+                    score = ''
                 # 海报url
                 try:
                     playbill_link = movie_soup.find('img', {'rel': 'v:image'}).get('src')
@@ -75,67 +86,87 @@ class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):
                     playbill_link = ''
                 ## 电影信息
                 infos = movie_soup.find('div', {'id': 'info'}).text.split('\n')[1:11]
-                # 导演
-                director = ','.join(infos[0].split(': ')[1].replace(' ', '').split('/'))
-                directors = []
-                for data in [data for data in director.split(',')]:
-                    if '\'' in data:
-                        data = ''.join(data.split('\''))
-                    directors.append(data)
-                directors = ','.join(directors)
-                # 编剧
-                # scriptwriter = ','.join(infos[1].split(': ')[1].replace(' ', '').split('/'))
-                # 主演
-                actor = ','.join(infos[2].split(': ')[1].replace(' ', '').split('/'))
-                actors = []
-                for data in [data for data in actor.split(',')]:
-                    if '\'' in data:
-                        data = ''.join(data.split('\''))
-                    actors.append(data)
-                actors = ','.join(actors)
-                # 类型
-                movies_type = ','.join(infos[3].split(': ')[1].replace(' ', '').split('/'))
-                # 国家/地区
-                area = ','.join(infos[4].split(': ')[1].replace(' ', '').split('/'))
-                # 语言
-                lang = ','.join(infos[5].split(': ')[1].replace(' ', '').split('/'))
-                # 上映日期
-                release_time = ','.join(infos[6].split(': ')[1].replace(' ', '').split('/'))
-                # 电影时长
-                movie_long = infos[7].split(': ')[1].replace(' ', '')
+                directors = ''
+                actors = ''
+                movies_type = ''
+                area = ''
+                lang = ''
+                release_time = ''
+                movie_long = ''
+                for info in infos:
+                    if '导演:' in info:
+                        directors = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                        if '\'' in directors:
+                            directors = ''.join(directors.split('\''))
+                    elif '主演:' in info:
+                        actor = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                        actors = []
+                        for data in [data for data in actor.split(',')]:
+                            if '\'' in data:
+                                data = ''.join(data.split('\''))
+                            actors.append(data)
+                        actors = ','.join(actors)
+                    elif '类型:' in info:
+                        movies_type = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                    elif '制片国家/地区:' in info:
+                        area = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                    elif '语言:' in info:
+                        lang = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                    elif '上映日期:' in info:
+                        release_time = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                    elif '片长:' in info:
+                        movie_long = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                        if '\'' in movie_long:
+                            movie_long = ''.join(movie_long.split('\''))
                 # 短评数量
-                short_review_num = re.findall(r'\d+', movie_soup.find('div', {'class': 'mod-hd'}).text.split('\n')[9].replace(' ', ''))[0]
+                try:
+                    short_review_num = re.findall(r'\d+', movie_soup.find('div', {'class': 'mod-hd'}).text.split('\n')[9].replace(' ', ''))[0]
+                except Exception as error:
+                    print(error)
+                    short_review_num = ''
                 # 星级占比
-                star_compare = ','.join(re.findall(r'\d+.\d+%', ''.join(
-                    data for data in movie_soup.find('div', {'class': 'ratings-on-weight'}).text.replace(' ', '').split('\n')
-                )))
+                try:
+                    star_compare = ','.join(re.findall(r'\d+.\d+%', ''.join(
+                        data for data in movie_soup.find('div', {'class': 'ratings-on-weight'}).text.replace(' ', '').split('\n')
+                    )))
+                except Exception as error:
+                    print(error)
+                    star_compare = ''
                 # 电影简介
-                movie_summary = re.findall(f'[^\u3000]+', ''.join(
-                    data for data in movie_soup.find('span', {'property': 'v:summary'}).text.replace(' ', '').split('\n')
-                ))[0]
-                if '\'' in movie_summary or '\"' in movie_summary:
-                    movie_summary = ''.join(movie_summary.split('\''))
+                try:
+                    movie_summary = re.findall(f'[^\u3000]+', ''.join(
+                        data for data in movie_soup.find('span', {'property': 'v:summary'}).text.replace(' ', '').split('\n')
+                    ))[0]
+                    if '\'' in movie_summary or '\"' in movie_summary:
+                        movie_summary = ''.join(movie_summary.split('\''))
+                except Exception as error:
+                    print(error)
+                    movie_summary = ''
                 # 电影短评
-                movie_review_data = []
-                movie_review = [data.text.replace(' ', '').split('\n') for data in movie_soup.findAll('div', {'class': 'comment'})]
-                movie_review_user = []
-                movie_review_star = re.findall(r'\d+', ''.join([data.get('class')[0] for data in (movie_soup.findAll('span', {'class': 'rating'}))]))
-                movie_review_time = []
-                movie_review_comment = []
-                for data in movie_review:
-                    for data_data in data:
-                        if data_data == '':
-                            data.remove(data_data)
-                for data in movie_review:
-                    user_msg = ''.join(re.findall(f'[\u4E00-\u9FA5A-Za-z0-9_]+', data[2]))
-                    if user_msg is None:
-                        user_msg = 'Anonymous'
-                    movie_review_user.append(user_msg)
-                    movie_review_time.append(data[4])
-                    movie_review_comment.append(''.join(re.findall(f'[^\'\"]+', data[8])))
-                for user, stat, p_time, comment in zip(movie_review_user, movie_review_star, movie_review_time, movie_review_comment):
-                    # movie_review_data.append(json.dumps({'user': f'{user}', 'star': f'{stat}', 'time': f'{time}', 'comment': f'{comment}'}, ensure_ascii=False))
-                    movie_review_data.append({'user': f'{user}', 'star': f'{stat}', 'time': f'{p_time}', 'comment': f'{comment}'})
+                try:
+                    movie_review_data = []
+                    movie_review = [data.text.replace(' ', '').split('\n') for data in movie_soup.findAll('div', {'class': 'comment'})]
+                    movie_review_user = []
+                    movie_review_star = re.findall(r'\d+', ''.join([data.get('class')[0] for data in (movie_soup.findAll('span', {'class': 'rating'}))]))
+                    movie_review_time = []
+                    movie_review_comment = []
+                    for data in movie_review:
+                        for data_data in data:
+                            if data_data == '':
+                                data.remove(data_data)
+                    for data in movie_review:
+                        user_msg = ''.join(re.findall(f'[\u4E00-\u9FA5A-Za-z0-9_]+', data[2]))
+                        if user_msg is None:
+                            user_msg = 'Anonymous'
+                        movie_review_user.append(user_msg)
+                        movie_review_time.append(data[4])
+                        movie_review_comment.append(''.join(re.findall(f'[^\'\"]+', data[8])))
+                    for user, stat, p_time, comment in zip(movie_review_user, movie_review_star, movie_review_time, movie_review_comment):
+                        # movie_review_data.append(json.dumps({'user': f'{user}', 'star': f'{stat}', 'time': f'{time}', 'comment': f'{comment}'}, ensure_ascii=False))
+                        movie_review_data.append({'user': f'{user}', 'star': f'{stat}', 'time': f'{p_time}', 'comment': f'{comment}'})
+                except Exception as error:
+                    print(error)
+                    movie_review_data = ''
                 # 相关图片链接
                 try:
                     about_img = ','.join(
@@ -170,7 +201,7 @@ class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):
                     about_img_url=about_img,
                     movie_url=about_avi
                 )
-                delay_time = random.randint(1, 5)
+                delay_time = random.randint(3, 5)
                 print(delay_time)
                 time.sleep(delay_time)
         except Exception as error:
