@@ -125,7 +125,7 @@ class CreateTables(ExecuteSQL):
         try:
             sql_msg = "create table if not exists tb_movies_used_info (" \
                       "id int not null primary key auto_increment comment 'id', " \
-                      "directors varchar(255) not null comment '电影导演', " \
+                      "directors varchar(2555) not null comment '电影导演', " \
                       "score varchar(255) not null comment '电影评分', " \
                       "title varchar(255) not null comment '电影名称', " \
                       "actors varchar(2555) not null comment '电影演员', " \
