@@ -21,27 +21,30 @@ class SpiderDoubanMoviesSimplesDatasCleaning(ConnectMySQL):
                       "order by count(tb_douban_movies.tb_movies_simple_info.url) desc ;"
             cursor.execute(query=sql_msg)
             movies_url = cursor.fetchall()
+            num = 0
             for index, url in movies_url:
                 index: int
                 url: str
                 if index > 1:
                     num = index - 1
-                    sql_msg = f"update tb_douban_movies.tb_movies_simple_info " \
-                              f"set tb_douban_movies.tb_movies_simple_info.is_delete = True " \
-                              f"where url = '{url}' " \
-                              f"order by id desc " \
-                              f"limit {num} ;"
-                    try:
-                        cursor.execute(query=sql_msg)
-                    except Exception as error:
-                        print(error)
-                        exit(1)
+                sql_msg = f"update tb_douban_movies.tb_movies_simple_info " \
+                          f"set tb_douban_movies.tb_movies_simple_info.is_delete = true " \
+                          f"where url = '{url}' " \
+                          f"order by id desc " \
+                          f"limit {num} ;"
+                try:
+                    print(sql_msg)
+                    cursor.execute(query=sql_msg)
+                    connect.commit()
+                except Exception as error:
+                    connect.rollback()
+                    print(error)
+                    exit(1)
         except Exception as error:
             print(error)
             exit(1)
         print('逻辑删除重复数据成功')
         cursor.close()
-        connect.commit()
         connect.close()
 
 

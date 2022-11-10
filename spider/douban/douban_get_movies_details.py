@@ -46,12 +46,13 @@ class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):
             sql_msg = "select tb_douban_movies.tb_movies_simple_info.id, tb_douban_movies.tb_movies_simple_info.url " \
                       "from tb_douban_movies.tb_movies_simple_info " \
                       "where tb_douban_movies.tb_movies_simple_info.is_delete = false " \
-                      "and tb_douban_movies.tb_movies_simple_info.id > 5338 " \
+                      "and tb_douban_movies.tb_movies_simple_info.id > 0 " \
                       "order by tb_douban_movies.tb_movies_simple_info.id ;"
             cursor.execute(query=sql_msg)
             movies_datas = cursor.fetchall()
             CreateTables().c_tb_movies_used_info()
             for id, url in movies_datas:
+                print(id)
                 movie_response = requests.request(
                     method='GET',
                     url=url,
@@ -108,12 +109,20 @@ class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):
                         actors = ','.join(actors)
                     elif '类型:' in info:
                         movies_type = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                        if '\'' in movies_type:
+                            movies_type = ''.join(movies_type.split('\''))
                     elif '制片国家/地区:' in info:
                         area = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                        if '\'' in area:
+                            area = ''.join(area.split('\''))
                     elif '语言:' in info:
                         lang = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                        if '\'' in lang:
+                            lang = ''.join(lang.split('\''))
                     elif '上映日期:' in info:
                         release_time = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
+                        if '\'' in release_time:
+                            release_time = ''.join(release_time.split('\''))
                     elif '片长:' in info:
                         movie_long = ','.join(info.split(': ')[1].replace(' ', '').split('/'))
                         if '\'' in movie_long:
@@ -201,9 +210,10 @@ class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):
                     about_img_url=about_img,
                     movie_url=about_avi
                 )
-                delay_time = random.randint(3, 5)
-                print(delay_time)
-                time.sleep(delay_time)
+                # delay_time = random.randint(3, 5)
+                # print(delay_time)
+                # time.sleep(delay_time)
+                time.sleep(1)
         except Exception as error:
             print(error)
             exit(1)
