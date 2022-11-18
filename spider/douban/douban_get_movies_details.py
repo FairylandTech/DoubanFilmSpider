@@ -7,12 +7,12 @@
 """
 
 from spider.douban.douban_get_movies_url import SpiderDoubanMoviesInit
-from spider.public.init_mysqlserver import ConnectMySQL
-from spider.public.tb_create import CreateTables
+from public.init_mysqlserver import ConnectMySQL
+from public.tb_create import CreateTables
 import requests
 from bs4 import BeautifulSoup
 import re, time, random
-from spider.public.tb_inster import InsterTables
+from public.tb_inster import InsterTables
 
 
 class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):

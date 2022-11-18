@@ -6,8 +6,8 @@
 @CreatedTime: 2022/10/28 14:07
 """
 
-from spider.public.mysqlserver_execute_command import ExecuteSQL
-from spider.public.tb_builtin_select import BuiltinSelect
+from public.mysqlserver_execute_command import ExecuteSQL
+from public.tb_builtin_select import BuiltinSelect
 
 
 class InsterTables(ExecuteSQL):

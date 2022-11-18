@@ -7,10 +7,10 @@
 """
 
 import requests
-from spider.public.tb_create import CreateTables
-from spider.public.init_headers import BuildHeaders
+from public.tb_create import CreateTables
+from public.init_headers import BuildHeaders
 import json
-from spider.public.tb_inster import InsterTables
+from public.tb_inster import InsterTables
 import time, random
 
 
