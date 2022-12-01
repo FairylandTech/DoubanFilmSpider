@@ -6,7 +6,7 @@
 @CreatedTime: 2022/11/8 0:39
 """
 
-from spider.public.init_mysqlserver import ConnectMySQL
+from public.init_mysqlserver import ConnectMySQL
 
 class SpiderDoubanMoviesSimplesDatasCleaning(ConnectMySQL):
     

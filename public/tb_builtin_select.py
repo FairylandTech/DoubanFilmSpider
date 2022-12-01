@@ -6,7 +6,7 @@
 @CreatedTime: 2022/10/30 0:56
 """
 
-from spider.public.mysqlserver_execute_command import ExecuteSQL
+from public.mysqlserver_execute_command import ExecuteSQL
 
 
 class BuiltinSelect(ExecuteSQL):

@@ -6,7 +6,7 @@
 @CreatedTime: 2022/10/28 15:19
 """
 
-from spider.public.mysqlserver_execute_command import ExecuteSQL
+from public.mysqlserver_execute_command import ExecuteSQL
 
 
 class CreateTables(ExecuteSQL):
