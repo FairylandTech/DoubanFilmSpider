@@ -10,6 +10,7 @@ from public.init_mysqlserver import ConnectMySQL
 
 
 class ExecuteSQL(ConnectMySQL):
+    """sql执行"""
 
     def __init__(self):
         super(ExecuteSQL, self).__init__()

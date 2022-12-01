@@ -15,10 +15,8 @@ def spider_run():
     # 1. 获取数据
     SpiderDoubanMoviesInit().batch_save_movies_url()
     # 2. 逻辑删除重复数据
-    # print('处理重复URL...')
     SpiderDoubanMoviesSimplesDatasCleaning().movies_url_datas_unique()
     # 3. 获取详细数据
     SpiderDoubanMoviesDetails().batch_save_movies_details()
-    print('Done!')
 
 

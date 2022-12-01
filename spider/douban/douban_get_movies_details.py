@@ -16,6 +16,7 @@ from public.tb_inster import InsterTables
 
 
 class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):
+    """电影详细数据"""
 
     def __init__(self):
         super().__init__()
@@ -24,22 +25,24 @@ class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):
             Referer='https://movie.douban.com/',
         )
         self.cookies = {
-            "ll": "118318",
-            "bid": "DcI5Fbd5RAQ",
-            "_pk_id.100001.4cf6": "959ba2efabc0eeb9.1666526866.1.1666526866.1666526866.",
-            "__yadk_uid": "SUX3h03B1t94hEHCClSpkHgmk1VKG8fV",
-            "dbcl2": "264064658:Eb5fqV+OILA",
-            "push_noty_num": "0",
-            "push_doumail_num": "0",
-            "ap_v": "0,6.0",
-            "ck": "F6Lh"
+            # "ll": "118318",
+            # "bid": "DcI5Fbd5RAQ",
+            # "_pk_id.100001.4cf6": "959ba2efabc0eeb9.1666526866.1.1666526866.1666526866.",
+            # "__yadk_uid": "SUX3h03B1t94hEHCClSpkHgmk1VKG8fV",
+            # "dbcl2": "264064658:Eb5fqV+OILA",
+            # "push_noty_num": "0",
+            # "push_doumail_num": "0",
+            # "ap_v": "0,6.0",
+            # "ck": "F6Lh"
         }
         self.proxies = {
             "http": "http://{}".format(requests.get("http://127.0.0.1:5010/get/").json().get("proxy")),
-            # "https": "http://{}".format(requests.get("http://127.0.0.1:5010/get/").json().get("proxy")),
         }
 
     def batch_save_movies_details(self):
+        """
+        保存电影详细信息
+        """
         connect = ConnectMySQL().mysql()
         cursor = connect.cursor()
         try:
@@ -210,9 +213,6 @@ class SpiderDoubanMoviesDetails(SpiderDoubanMoviesInit):
                     about_img_url=about_img,
                     movie_url=about_avi
                 )
-                # delay_time = random.randint(3, 5)
-                # print(delay_time)
-                # time.sleep(delay_time)
                 time.sleep(1)
         except Exception as error:
             print(error)

@@ -15,6 +15,7 @@ import time, random
 
 
 class SpiderDoubanMoviesInit(object):
+    """获取电影名称和URL"""
 
     def __init__(self):
         CreateTables().c_tb_movies_temp_info()
@@ -83,14 +84,9 @@ class SpiderDoubanMoviesInit(object):
 
     def batch_save_movies_url(self):
         CreateTables().c_tb_movies_simple_info()
-        # types_list: list = [
-        #     '喜剧', '爱情', '动作', '科幻', '动画', '悬疑', '犯罪', '惊悚', '冒险', '音乐', '历史', '奇幻', '恐怖', '战争', '传记', '歌舞', '武侠',
-        #     '情色', '灾难', '西部', '纪录片', '短片'
-        # ]
         types_list: list = [
-            # '战争',
-            # '情色', 
-            '灾难', '西部', '纪录片', '短片'
+            '喜剧', '爱情', '动作', '科幻', '动画', '悬疑', '犯罪', '惊悚', '冒险', '音乐', '历史', '奇幻', '恐怖', '战争', '传记', '歌舞', '武侠',
+            '情色', '灾难', '西部', '纪录片', '短片'
         ]
         country_list: list = [
             '华语', '欧美', '韩国', '日本', '中国大陆', '美国', '中国香港', '中国台湾', '英国', '法国', '德国', '意大利', '西班牙', '印度', '泰国',
