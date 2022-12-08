@@ -23,19 +23,19 @@ class SpiderDoubanMoviesInit(object):
         self.movies_details_url = 'https://movie.douban.com/subject'
         self.headers = BuildHeaders.headers()
         self.proxies = {
-            'http': 'http://127.0.0.1:65353',
-            'https': 'http://127.0.0.1:65353',
+            # 'http': 'http://127.0.0.1:65353',
+            # 'https': 'http://127.0.0.1:65353',
             # 'sock': 'socks5://127.0.0.1:65353'
         }
         self.cookies = {
-            "ll": "118318",
-            "bid": "DcI5Fbd5RAQ",
-            "ap_v": "0,6.0",
-            "dbcl2": "264064658:Eb5fqV+OILA",
-            "ck": "F6Lh",
-            "push_noty_num": "0",
-            "push_doumail_num": "0",
-            "frodotk": "2631c3e438ad25a472954bacaa0770ec"
+            # "ll": "118318",
+            # "bid": "DcI5Fbd5RAQ",
+            # "ap_v": "0,6.0",
+            # "dbcl2": "264064658:Eb5fqV+OILA",
+            # "ck": "F6Lh",
+            # "push_noty_num": "0",
+            # "push_doumail_num": "0",
+            # "frodotk": "2631c3e438ad25a472954bacaa0770ec"
         }
         self.params = {
             "refresh": "0",
@@ -56,7 +56,6 @@ class SpiderDoubanMoviesInit(object):
             params=params,
             cookies=self.cookies,
         )
-        # response_status_code = response.status_code
         response_json = json.loads(response.content.decode())
         return response_json
     

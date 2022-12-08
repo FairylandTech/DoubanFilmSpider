@@ -11,10 +11,10 @@ from public.mysqlserver_execute_command import ExecuteSQL
 
 class CreateTables(ExecuteSQL):
     """创建数据"""
-    
+
     def __init__(self):
         super(CreateTables, self).__init__()
-        
+
     def c_tb_director_info(self):
         try:
             sql_msg = "create table if not exists tb_director_info (" \
@@ -75,7 +75,7 @@ class CreateTables(ExecuteSQL):
         except Exception as error:
             print(error)
             exit(1)
-            
+
     def c_tb_movies_temp_info(self):
         try:
             sql_msg = "create table if not exists tb_movies_temp_info (" \
@@ -105,7 +105,7 @@ class CreateTables(ExecuteSQL):
         except Exception as error:
             print(error)
             exit(1)
-            
+
     def c_tb_movies_simple_info(self):
         try:
             sql_msg = "create table if not exists tb_movies_simple_info (" \
@@ -120,7 +120,7 @@ class CreateTables(ExecuteSQL):
         except Exception as error:
             print(error)
             exit(1)
-            
+
     def c_tb_movies_used_info(self):
         try:
             sql_msg = "create table if not exists tb_movies_used_info (" \
@@ -151,6 +151,7 @@ class CreateTables(ExecuteSQL):
         except Exception as error:
             print(error)
             exit(1)
+
 
 if __name__ == '__main__':
     # CreateTables().c_tb_director_info()
