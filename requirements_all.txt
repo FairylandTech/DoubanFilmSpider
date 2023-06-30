@@ -29,7 +29,7 @@ packaging==21.3
 pandas==1.5.1
 pefile==2022.5.30
 Pillow==9.3.0
-pipreqs==0.4.11
+pipreqs==0.4.12
 prettytable==3.5.0
 pyecharts==1.9.1
 pyinstaller==5.6.1
